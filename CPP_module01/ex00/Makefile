@@ -1,6 +1,6 @@
 NAME		= BraiiiiiiinnnzzzZ
 
-SRCS 		= srcs/main.cpp srcs/newZombie.cpp srcs/randomChunk.cpp srcs/Zombie.cpp
+SRCS 		= srcs/main.cpp srcs/newZombie.cpp srcs/randomChump.cpp srcs/Zombie.cpp
 OBJS_DIR	= objs
 INC_DIR		= includes
 OBJS		= $(patsubst srcs/%.cpp, $(OBJS_DIR)/%.o, $(SRCS))

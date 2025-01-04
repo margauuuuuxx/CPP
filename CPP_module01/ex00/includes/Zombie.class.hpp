@@ -15,6 +15,6 @@ class   Zombie
 };
 
 Zombie* newZombie(std::string name); // heap allocation --> no automatic destruction
-void    randomChunk(std::string name); // stack allocation --> automatic destruction
+void    randomChump(std::string name); // stack allocation --> automatic destruction
 
 #endif 

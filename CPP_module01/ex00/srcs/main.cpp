@@ -18,7 +18,7 @@ int main()
     std::cout << std::endl;
 
     std::cout << "Creating new zombie on the stack with random chunk" << std::endl;
-    randomChunk("Chunky");
+    randomChump("Chunky");
     std::cout << std::endl;
 
     std::cout << "Deleting the zombie created on the heap" << std::endl;
