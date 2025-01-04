@@ -15,12 +15,31 @@
 
 int main(int argc, char **argv)
 {
-    if (argc < 2 ||
-        (argv[1] && (std::string(argv[1]) != "ADD" && std::string(argv[1]) != "SEARCH" 
-        && std::string(argv[1]) != "EXIT")))
+    (void)argv;
+
+    if (argc > 1)
     {
-        std::cout << "Please enter a valid argument:\n\tADD / SEARCH /EXIT" << std::endl;
-        return (1);
+        std::cout << "The program doesn't need any argument, please try again :P" << std::endl;
+        exit (1);
+    }
+
+    PhoneBook phonebook;
+    std::string input;
+    while (1)
+    {
+        std::cout << "Choose an option: ADD / SEARCH / EXIT" << std::endl;
+        std::cin >> input;
+        if (input == "ADD")
+            phonebook.addContact();
+        else if (input == "SEARCH")
+            phonebook.displayContacts();
+        else if (input == "EXIT")
+        {
+            std::cout << PINK << "Exiting program, byeeeeee" << RESET << std::endl;
+            break;
+        }
+        else
+            std::cout << "Invalid command :(\nPlease choose from : ADD / SEARCH / EXIT" << std::endl;
     }
     return (0);
 }

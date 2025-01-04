@@ -1,17 +1,27 @@
-/*
-    3 commands : ADD / SEARCH / EXIT
-        --> ADD displays field 1 by 1
-        --> DISPLAY as a ;ine of 4 columns : index / fisrt/ last / nickname 
-            each column must be 10 cher wide, separated by |, right aligned 
-                if text longer then it must be truncated and the last displayable char must be set to '.'
-            then asks for specific index to display 
-        --> EXIT all contacts are lost 
-    5 fields (no field can be empty) : first name / last name / nickname / phone number / darkest secret
-    MAX 8 contacts 
-*/
-
 #include "Contact.class.hpp"
 
 Contact::Contact() { return; }
 
 Contact::~Contact() { return; }
+
+void    Contact::setFirstName(std::string firstName) { this->firstName = firstName; }
+void    Contact::setLastName(std::string lastName) { this->lastName = lastName; }
+void    Contact::setNickname(std::string nickName) { this->nickName = nickName; }
+void    Contact::setPhoneNbr(std::string phoneNbr) { this->phoneNbr = phoneNbr; }
+void    Contact::setDarkestSecret (std::string darkestSecret) { this->darkestSecret = darkestSecret; }
+
+std::string Contact::getFirstName() { return (firstName); } // implicitly referring to the attribue of the current object
+std::string Contact::getLastName() { return (lastName); }
+std::string Contact::getNickname() { return (nickName); }
+std::string Contact::getPhoneNbr() { return (phoneNbr); }
+std::string Contact::getDarkestSecret() { return (darkestSecret); }
+ 
+bool    Contact::validPhoneNumber(const std::string& phoneNbr)
+{
+    for (size_t i = 0; i < phoneNbr.length(); i++)
+    {
+        if (!std::isdigit(phoneNbr[i]))
+            return (false);
+    }
+    return (true);
+}
