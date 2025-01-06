@@ -1,5 +1,6 @@
 #include "PhoneBook.class.hpp"
 #include <iostream>
+#include <string>
 
 PhoneBook::PhoneBook() 
 { 
@@ -77,6 +78,16 @@ static std::string  truncateString(const std::string& str)
     return (str);
 }
 
+bool    isNumeric(std::string str)
+{
+    for (std::string::const_iterator it = str.begin(); it != str.end(); it++)
+    {
+        if (!std::isdigit(*it))
+            return (false);
+    }
+    return (true);
+}
+
 void PhoneBook::display(const int &i)
 {
         std::cout << std::setw(10) << std::right << i 
@@ -92,20 +103,24 @@ void    PhoneBook::displayContacts()
         std::cout << "No contacts to display" << std::endl;
         return ;
     }
-    for (int i = 0; i < 8; i++)
-        display(i);
+    if (this->contactCount < 8)
+         for (int i = 0; i < contactCount; i++)
+            display(i);
+    else 
+        for (int i = 0; i < 8; i++)
+            display(i);
 
     std::string input;
     std::cout << "What index would you like to see ? " << std::endl;
     std::cin.ignore();
-    if (!std::getline(std::cin, input) || input.empty())
+    if (!std::getline(std::cin, input) || input.empty() || !isNumeric(input))
     {
         std::cout << "Invalid input, please type SEARCH again and then submit an index if you would like to retry" << std::endl;
         return;
     }
     try 
     {
-        int index = std::stoi(input);
+        int index = std::atoi(input.c_str());
         if (index < 0 || index > (this->contactCount - 1))
             std::cout << "Invalid index, please provide a number between 0 and " << (this->contactCount - 1) << std::endl;
         else 

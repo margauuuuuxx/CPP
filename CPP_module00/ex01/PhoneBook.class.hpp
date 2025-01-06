@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <cstdlib> // for exit fct
 #include "Contact.class.hpp"
 
 #define PINK    "\033[1;38;5;213m"

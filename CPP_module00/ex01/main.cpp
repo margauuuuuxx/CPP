@@ -41,5 +41,6 @@ int main(int argc, char **argv)
         else
             std::cout << "Invalid command :(\nPlease choose from : ADD / SEARCH / EXIT" << std::endl;
     }
+
     return (0);
 }
