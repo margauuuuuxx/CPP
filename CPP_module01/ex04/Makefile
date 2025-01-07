@@ -1,11 +1,10 @@
 NAME		= sed_is_for_losers
 
-SRCS 		= srcs/main.cpp
+SRCS 		= main.cpp
 OBJS_DIR	= objs
-INC_DIR		= includes
-OBJS		= $(patsubst srcs/%.cpp, $(OBJS_DIR)/%.o, $(SRCS))
+OBJS		= $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 FLAGS 		= -Wall -Wextra -Werror -std=c++98 
-INCLUDES	= -I$(INC_DIR) -I.
+INCLUDES	= -I.
 
 RED   		= \033[1;38;5;196m
 PINK  		= \033[1;38;5;213m
@@ -18,7 +17,7 @@ $(NAME): $(OBJS)
 	@c++ $(FLAGS) $(OBJS) -o $(NAME)
 	@printf "\r${PINK}Compiiiiiling ${FACE} : [${RED}%-50s${RED}${PINK}] %d/%d${NC}" $$(printf "#%.0s" $$(seq 1 $$(expr $$(find $(OBJS_DIR) -name '*.o' | wc -l) \* 50 / $(words $(SRCS))))) $$(find $(OBJS_DIR) -name '*.o' | wc -l) $(words $(SRCS))
 
-$(OBJS_DIR)/%.o: srcs/%.cpp
+$(OBJS_DIR)/%.o: %.cpp
 	@mkdir -p $(OBJS_DIR)
 	@c++ $(FLAGS) -c $< -o $@
 
