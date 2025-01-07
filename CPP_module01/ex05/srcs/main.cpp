@@ -3,28 +3,32 @@
 int main()
 {
     Harl harl;
-    std::cout << "Input = debug\nouput:\t";
-    harl.complain("debug");
+    std::cout << "Input = DEBUG\nouput:\t";
+    harl.complain("DEBUG");
     std::cout << std::endl;
 
-    std::cout << "Input = info\nouput:\t";
-    harl.complain("info");
+    std::cout << "Input = INFO\nouput:\t";
+    harl.complain("INFO");
     std::cout << std::endl;
 
-    std::cout << "Input = warning\nouput:\t";
-    harl.complain("warning");
+    std::cout << "Input = WARNING\nouput:\t";
+    harl.complain("WARNING");
     std::cout << std::endl;
 
-    std::cout << "Input = error\nouput:\t";
-    harl.complain("error");
+    std::cout << "Input = ERROR\nouput:\t";
+    harl.complain("ERROR");
     std::cout << std::endl;
 
     std::cout << "Input = LOOOOL\nouput:\t";
     harl.complain("LOOOL");
     std::cout << std::endl;
 
-    std::cout << "Input = errorrrr\nouput:\t";
-    harl.complain("errorrrr");
+    std::cout << "Input = ERROOOOR\nouput:\t";
+    harl.complain("ERROOOOR");
+    std::cout << std::endl;
+
+    std::cout << "Input = error\nouput:\t";
+    harl.complain("error");
     std::cout << std::endl;
 
     std::cout << "Input = \nouput:\t";

@@ -14,10 +14,10 @@ void    Harl::error() { std::cout << "This is propoerly unacceptable ! I want to
 void    Harl::complain(std::string level)
 {
     std::map<std::string, void (Harl::*)()> actions; // *
-    actions.insert(std::make_pair("debug", &Harl::debug));
-    actions.insert(std::make_pair("info", &Harl::info));
-    actions.insert(std::make_pair("warning", &Harl::warning));
-    actions.insert(std::make_pair("error", &Harl::error));
+    actions.insert(std::make_pair("DEBUG", &Harl::debug));
+    actions.insert(std::make_pair("INFO", &Harl::info));
+    actions.insert(std::make_pair("WARNING", &Harl::warning));
+    actions.insert(std::make_pair("ERROR", &Harl::error));
     std::map<std::string, void (Harl::*)()>::iterator it = actions.find(level); // **
     if (it != actions.end())
         (this->*(it->second))(); // ***
