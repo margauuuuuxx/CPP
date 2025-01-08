@@ -13,14 +13,10 @@ void    Harl::error( void ) { std::cout << "[ ERROR ]\nThis is propoerly unaccep
 
 int Harl::getLevel(std::string level)
 {
-    std::map<std::string, int> levels;
-    levels.insert(std::make_pair("DEBUG", 0));
-    levels.insert(std::make_pair("INFO", 1));
-    levels.insert(std::make_pair("WARNING", 2));
-    levels.insert(std::make_pair("ERROR", 3));
-    std::map<std::string, int>::iterator it = levels.find(level);
-    if (it != levels.end())
-        return (it->second);
+    std::string levels[] = { "DEBUG", "INFO", "WARNING", "ERROR"};
+    for (int i = 0; i < 4; i++)
+        if (levels[i] == level)
+            return (i);
     return (-1);
 }
 
