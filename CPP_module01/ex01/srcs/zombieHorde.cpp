@@ -3,7 +3,7 @@
 Zombie* zombieHorde( int N, std::string name )
 {
     if (N <= 0 || N >= std::numeric_limits<int>::max())
-        return nullptr;
+        return (NULL);
     
     Zombie*  zombies = new Zombie[N];
 
