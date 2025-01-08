@@ -14,7 +14,7 @@ void    error(std::string str)
     std::cout << str << std::endl;
 }
 
-std::string    fileName(std::string str)
+std::string getFileName(std::string str)
 {
     std::string result;
     size_t  lastDot = str.rfind('.');
@@ -54,7 +54,9 @@ int main(int argc, char **argv)
                                 std::istreambuf_iterator<char>()); // parcourir sourcefile et le mettre dans filecontent
     sourceFile.close();
     std::string modifiedContent = replace(fileContent, std::string(argv[2]), std::string(argv[3]));
-    std::ofstream outputFile(fileName(argv[1])); // opening the file for writing
+    std::string fileName = getFileName(argv[1]);
+    const char* cFileName = fileName.c_str();
+    std::ofstream outputFile(cFileName); // opening the file for writing | only accepts const char *
     if (!outputFile)
         return(error("Error opening ouput file"), 1);
     outputFile << modifiedContent;
