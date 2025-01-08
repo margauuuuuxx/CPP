@@ -9,6 +9,7 @@ class   Harl
         void    info( void );
         void    warning( void );
         void    error( void);
+        typedef void    (Harl::*fctPtr)(); // define a typedef for a ptr to fct 
     public:
         Harl();
         ~Harl();
