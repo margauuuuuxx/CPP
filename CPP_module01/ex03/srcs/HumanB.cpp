@@ -1,6 +1,6 @@
 #include "../includes/HumanB.class.hpp"
 
-HumanB::HumanB(std::string name) { this->name = name; }
+HumanB::HumanB(std::string name) : name(name), weaponB(NULL) {};
 HumanB::~HumanB() {}
 
 

@@ -6,8 +6,8 @@
 class HumanB
 {
     private:
-        Weapon* weaponB; // use of a ptr so it can be initialized after
         std::string name;
+        Weapon* weaponB; // use of a ptr so it can be initialized after
     public:
         HumanB(std::string name);
         ~HumanB();
