@@ -1,0 +1,3 @@
+valgrinf 
+check if copy constructor & copy assignment operator everywhere 
+finish visualizer ex03
