@@ -33,6 +33,8 @@ std::string    replace(std::string inputContent, std::string s1, std::string s2)
 
     pos = 0;
     found = 0;
+    if (s1 == "")
+        return (inputContent);
     while ((found = inputContent.find(s1, pos)) != std::string::npos)
     {
         result.append(inputContent, pos, found - pos);
