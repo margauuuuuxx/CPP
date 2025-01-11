@@ -1,18 +1,17 @@
-#include "../includes/ScavTrap.class.hpp"
+#include "../includes/DiamondTrap.class.hpp"
 
 int main()
 {
-    ClapTrap    def;
-    ScavTrap    a("A");
-    ScavTrap    b(a);
-    ScavTrap    c = a;
+    FragTrap    a("A");
+    FragTrap    b(a);
+    FragTrap    c = a;
 
     std::cout << "Here are the stats of A:" << std::endl;
     std::cout << "\tHit points: " << a.getHitsPts() << "\n\tEnergy points: " << a.getEnergyPts() << "\n\tAttack damage: " << a.getAttackDamage() << std::endl;
     a.attack("the corrector correcting this");
     b.beRepaired(10);
     c.takeDamage(25);
-    a.guardGate();
+    a.highFivesGuys();
     
     return (0);
 }

@@ -26,6 +26,11 @@ ClapTrap&   ClapTrap::operator = (const ClapTrap& other)
     return (*this);
 }
 
+void    ClapTrap::setName(std::string name) { this->name = name; }
+void    ClapTrap::setHitPts(unsigned int hitPts) { this->hitPts = hitPts; }
+void    ClapTrap::setEnergyPts(unsigned int energyPts) { this->energyPts = energyPts; }
+void    ClapTrap::setAttackDamage(unsigned int attackDamage) { this->attackDamage = attackDamage; }
+
 std::string ClapTrap::getName() const { return (this->name); }
 unsigned int    ClapTrap::getHitsPts() { return (this->hitPts); }
 unsigned int    ClapTrap::getEnergyPts() { return (this->energyPts); }

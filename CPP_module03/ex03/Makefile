@@ -1,6 +1,6 @@
-NAME		= ClapTrap
+NAME		= DiamondTrap
 
-SRCS 		= srcs/main.cpp srcs/ClapTrap.cpp
+SRCS 		= srcs/main.cpp srcs/ClapTrap.cpp srcs/ScavTrap.cpp srcs/FragTrap.cpp srcs/DiamondTrap.cpp
 OBJS_DIR	= objs
 INC_DIR		= includes
 OBJS		= $(patsubst srcs/%.cpp, $(OBJS_DIR)/%.o, $(SRCS))
