@@ -3,7 +3,7 @@
 
 #include "ClapTrap.class.hpp"
 
-class ScavTrap : public ClapTrap // this is how we define inheritance *
+class ScavTrap : public virtual ClapTrap // this is how we define inheritance *
 {
     public:
         ScavTrap();

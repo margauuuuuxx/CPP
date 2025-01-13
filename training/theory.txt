@@ -1,0 +1,69 @@
+Variable notation :
+    1. PascalCase
+    2. camelCase
+    3. snake_case
+
+Stream operators :
+    1. << to write data to a stream
+    2. >> to read data from a stream 
+
+Default value for parameters are possible :
+    --> double CalculateTax(double income, double taxRate = .3) {}
+
+Orthodox canonical form :
+    class Example 
+    {
+        public:
+            // Default constructor
+            Example();
+
+            // Destructor
+            ~Example();
+
+            // Copy constructor --> creates a new instance by copying from an existing one 
+            Example(const Example& other);
+
+            // Copy assignment operator --> assigns the state of one instance to another existing one
+            Example& operator=(const Example& other);
+
+        private:
+            std::string data; // Example of a private member variable
+    };
+
+    PURPOSE :
+    --> handle copying of class objects safely, especially with dynamic memory allocation
+                1. Copy constructor :
+                    --> called when a new object is created and initialized with an new object
+                        Example obj1;
+                        Example obj2 = obj1; // copy constructor is called 
+                    --> called when an object is passed by its value, the copy constructor creates a local copy for the fct
+                        void processExample(Example e) // copy constructor is called by adding the e 
+                    --> if an object is returned by value, it's called to create a temporary object for the return 
+                2. Copy assignment operator :
+                    --> called when an already existing object is assigned the state of another
+                        Example obj1;
+                        Example obj2;
+                        obj2 = obj1; // copy assignment operator is called 
+    DEFAULT BEHAVIOR :
+    --> member-wise copying :   - primitive types are copied as is
+                                - ptrs members are copied as addresses --> shallow copy 
+    CUSTOMIZATION :
+    --> for dynamic memory management --> deep copy logic 
+        class Example {
+            private:
+                int* data;
+            public:
+                // Custom copy constructor
+                Example(const Example& other) : data(new int(*other.data)) {}
+
+                // Custom copy assignment operator
+                Example& operator=(const Example& other) {
+                    if (this == &other) return *this; // Handle self-assignment
+                    delete data;                      // Clean up existing resource
+                    data = new int(*other.data);      // Deep copy
+                    return *this;
+                }
+
+                ~Example() { delete data; }           // Free memory
+        };
+
