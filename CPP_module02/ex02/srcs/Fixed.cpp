@@ -7,6 +7,8 @@ Fixed::Fixed(const int value) { this->rawBits = value << fractionalBits; }
 Fixed::Fixed(const float fValue) { this->rawBits = roundf(fValue * (1 << fractionalBits)); }
 Fixed::~Fixed() {}
 
+Fixed::Fixed(const Fixed& other) { this->rawBits = other.getRawBits(); }
+
 Fixed&  Fixed::operator=(const Fixed& other)
 {
     if (this != &other)

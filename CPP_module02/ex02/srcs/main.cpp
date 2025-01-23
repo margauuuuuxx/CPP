@@ -16,7 +16,7 @@ int main()
     std::cout << "Min fct output:\t" << Fixed::min( a, c) << std::endl;
     std::cout << "Cst max fct ouput:\t" << Fixed::maxCst(a, b) << std::endl;
     std::cout << "Cst min fct output:\t" << Fixed::minCst(a, b) << std::endl;
-    std::cout << "Null division:\t" << b / d << std::endl;
+    //std::cout << "Null division:\t" << b / d << std::endl;
 
     return 0;
 }

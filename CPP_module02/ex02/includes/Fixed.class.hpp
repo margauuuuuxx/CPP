@@ -14,6 +14,7 @@ class Fixed
         ~Fixed();
         Fixed(const int value);
         Fixed(const float fValue);
+        Fixed(const Fixed& other);
         Fixed& operator = (const Fixed& other);
 
         int     getRawBits ( void ) const;
