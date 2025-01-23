@@ -5,10 +5,11 @@ OBJS_DIR	= objs
 INC_DIR		= includes
 OBJS		= $(patsubst srcs/%.cpp, $(OBJS_DIR)/%.o, $(SRCS))
 FLAGS 		= -Wall -Wextra -Werror -std=c++98 
-INCLUDES	= -I$(INC_DIR) -I. -I/opt/homebrew/include
+INCLUDES	= -I$(INC_DIR) -I. 
+#-I/opt/homebrew/include
 
-LDFLAGS		= -L/opt/homebrew/lib
-LIBS		= -lsfml-graphics -lsfml-window -lsfml-system
+#LDFLAGS		= -L/opt/homebrew/lib
+#LIBS		= -lsfml-graphics -lsfml-window -lsfml-system
 
 RED   		= \033[1;38;5;196m
 PINK  		= \033[1;38;5;213m
@@ -18,7 +19,8 @@ FACE		= 😏
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@c++ $(FLAGS) $(OBJS) $(LDFLAGS) $(LIBS) -o $(NAME)
+	@c++ $(FLAGS) $(OBJS) $(LIBS) -o $(NAME)
+# $(LDFLAGS)
 	@printf "\r${PINK}Compiiiiiling ${FACE} : [${RED}%-50s${RED}${PINK}] %d/%d${NC}" $$(printf "#%.0s" $$(seq 1 $$(expr $$(find $(OBJS_DIR) -name '*.o' | wc -l) \* 50 / $(words $(SRCS))))) $$(find $(OBJS_DIR) -name '*.o' | wc -l) $(words $(SRCS))
 
 $(OBJS_DIR)/%.o: srcs/%.cpp

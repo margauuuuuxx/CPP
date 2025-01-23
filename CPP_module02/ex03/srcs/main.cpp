@@ -1,40 +1,40 @@
 #include "../includes/Point.class.hpp"
-#include <SFML/Graphics.hpp>
-#include <optional>
+//#include <SFML/Graphics.hpp>
+//#include <optional>
 
-int displayTriangle(Point const a, Point const b, Point const c, Point const point)
-{
-    sf::RenderWindow window(sf::VideoMode(sf::Vector2f(800, 600)));
+// int displayTriangle(Point const a, Point const b, Point const c, Point const point)
+// {
+//     sf::RenderWindow window(sf::VideoMode(sf::Vector2f(800, 600)));
 
-    sf::CircleShape pointShape(5);
-    pointShape.setFillColor(sf::Color::Red);
-    float   pointx = point.getx();
-    float   pointy = point.gety();
-    pointShape.setPosition(sf::Vector2f(pointx - 5, pointy - 5));
+//     sf::CircleShape pointShape(5);
+//     pointShape.setFillColor(sf::Color::Red);
+//     float   pointx = point.getx();
+//     float   pointy = point.gety();
+//     pointShape.setPosition(sf::Vector2f(pointx - 5, pointy - 5));
 
 
-    float   Ax = a.getx();
-    float   Ay = a.gety();
-    float   Bx = b.getx();
-    float   By = b.gety();
-    float   Cx = c.getx();
-    float   Cy = c.gety();
-    sf::ConvexShape triangle;
-    triangle.setPointCount(3);
-    triangle.setPoint(0, sf::Vector2f(Ax, Bx));
-    triangle.setPoint(1, sf::Vector2f(Bx, By));
-    triangle.setPoint(2, sf::Vector2f(Cx, Cy));
-    triangle.setFillColor(sf::Color(100, 100, 255, 100));
+//     float   Ax = a.getx();
+//     float   Ay = a.gety();
+//     float   Bx = b.getx();
+//     float   By = b.gety();
+//     float   Cx = c.getx();
+//     float   Cy = c.gety();
+//     sf::ConvexShape triangle;
+//     triangle.setPointCount(3);
+//     triangle.setPoint(0, sf::Vector2f(Ax, Bx));
+//     triangle.setPoint(1, sf::Vector2f(Bx, By));
+//     triangle.setPoint(2, sf::Vector2f(Cx, Cy));
+//     triangle.setFillColor(sf::Color(100, 100, 255, 100));
 
-    while (window.isOpen())
-    {
-        std::optional<sf::Event> event = window.pollEvent(); // checks for mouse clicks, key presses, ..
-        if (event)
-        {
-            if (event->is == sf::Event::Closed)
-        }
-    }
-}
+//     while (window.isOpen())
+//     {
+//         std::optional<sf::Event> event = window.pollEvent(); // checks for mouse clicks, key presses, ..
+//         if (event)
+//         {
+//             if (event->is == sf::Event::Closed)
+//         }
+//     }
+// }
 
 int main()
 {
