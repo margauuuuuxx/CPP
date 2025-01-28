@@ -1,7 +1,7 @@
 #ifndef CAT_CLASS_HPP
 # define CAT_CLASS_HPP
 
-#include "Animal.clas.hpp"
+#include "Animal.class.hpp"
 
 class Cat : public Animal
 {

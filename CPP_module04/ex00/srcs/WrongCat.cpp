@@ -6,7 +6,7 @@ WrongCat::WrongCat()
     this->type = "WrongCat";
 }
 
-WrongCat::WrongCat(WrongCat const &other)
+WrongCat::WrongCat(WrongCat const &other) : WrongAnimal()
 {
     std::cout << "WrongCat copy constructor has been called" << std::endl;
     *this = other;

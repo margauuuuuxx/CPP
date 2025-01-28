@@ -5,7 +5,7 @@ OBJS_DIR	= objs
 INC_DIR		= includes
 OBJS		= $(patsubst srcs/%.cpp, $(OBJS_DIR)/%.o, $(SRCS))
 FLAGS 		= -Wall -Wextra -Werror -std=c++98 
-INCLUDES	= -I$(INC_DIR) -I.
+INCLUDES	= -I$(INC_DIR)
 
 RED   		= \033[1;38;5;196m
 PINK  		= \033[1;38;5;213m
