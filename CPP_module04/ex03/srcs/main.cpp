@@ -23,6 +23,8 @@ int main ()
     delete (src);
     delete (Marg);
     delete (Corrector);
+    //delete (a);
+    //delete (b);
 
     return 0;
 }
