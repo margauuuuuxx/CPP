@@ -1,6 +1,11 @@
 #include "../includes/Brain.class.hpp"
 
-Brain::Brain() { std::cout << "Brain constructor has been called" << std::endl; }
+Brain::Brain() 
+{ 
+    std::cout << "Brain constructor has been called" << std::endl; 
+    for (int i = 0; i < 100; i++)
+        this->ideas[i] = "IDEA";
+}
 
 Brain::Brain(const Brain &other)
 {
