@@ -1,6 +1,10 @@
 #include "../includes/MateriaSource.class.hpp"
 
-MateriaSource::MateriaSource() {}
+MateriaSource::MateriaSource() 
+{
+    for (int i = 0; i < 4; i++)
+        source[i] = NULL;
+}
 
 MateriaSource::MateriaSource(const MateriaSource &other) { *this = other; }
 
