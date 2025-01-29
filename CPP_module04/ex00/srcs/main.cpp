@@ -29,6 +29,7 @@ int main()
     std::cout << std::endl;
 
     delete (meta);
+    delete (j);
     delete (Dragi);
     delete (Wrong);
     delete (Catou);
