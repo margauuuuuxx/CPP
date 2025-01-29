@@ -1,6 +1,7 @@
 #include "../includes/Animal.class.hpp"
 
-Animal::Animal() { std::cout << "Animal default constructor has been called" << std::endl; }
+Animal::Animal() : type("animal") { std::cout << "Animal default constructor has been called" << std::endl; }
+
 Animal::Animal(const Animal &other)
 {
     std::cout << "Animal copy constructor has been called" << std::endl;
