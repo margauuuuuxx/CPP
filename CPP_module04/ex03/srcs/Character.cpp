@@ -1,12 +1,17 @@
 #include "../includes/Character.class.hpp"
 
-Character::Character() : Character("Default name") {}
-
-Character::Character(std::string name)
+Character::Character()
 {
-    name = name;
+    this->name = "Default name";
     for (int i = 0; i < 4; i++)
-        inventory[i] = nullptr;
+        inventory[i] = NULL;
+}
+
+Character::Character(std::string str)
+{
+    name = str;
+    for (int i = 0; i < 4; i++)
+        inventory[i] = NULL;
 }
 
 Character::Character(const Character &other) { *this = other; }
@@ -26,7 +31,7 @@ std::string const & Character::getName() const { return (this->name); }
 
 void    Character::equip(AMateria *m)
 {
-    if (m == nullptr)
+    if (m == NULL)
     {
         std::cout << "Cannot equip an AMateria that doesn't exist" << std::endl;
         return;
@@ -34,7 +39,7 @@ void    Character::equip(AMateria *m)
     
     for (int i = 0; i < 4; i++)
     {
-        if (inventory[i] == nullptr)
+        if (inventory[i] == NULL)
         {
             inventory[i] = m;
             std::cout << "Equipment AMateria added in index: " << i << std::endl;
@@ -53,13 +58,13 @@ void    Character::unequip(int idx)
         return;
     }
 
-    if (inventory[idx] == nullptr)
+    if (inventory[idx] == NULL)
     {
         std::cout << "Already nothing in the inventory at the provided index" << std::endl;
         return;
     }
 
-    inventory[idx] = nullptr;
+    inventory[idx] = NULL;
     std::cout << "Equipment AMateria successfully unequipped at slot: " << idx << std::endl;
 }
 
@@ -71,7 +76,7 @@ void    Character::use(int idx, ICharacter& target)
         return;
     }
 
-    if (inventory[idx] == nullptr)
+    if (inventory[idx] == NULL)
     {
         std::cout << "No AMateria set in the inventory at the provided index" << std::endl;
         return;

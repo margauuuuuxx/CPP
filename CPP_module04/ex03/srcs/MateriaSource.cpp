@@ -40,4 +40,5 @@ AMateria*   MateriaSource::createMateria(std::string const & type)
             return (this->source[i]->clone());
     }
     std::cout << "Cannot create MateriaSource: unknown type" << std::endl;
+    return (NULL);
 }
