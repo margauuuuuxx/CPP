@@ -16,11 +16,14 @@ int main()
         Form f1("Form 1", 10, 16);
         std::cout << f1 << std::endl;
 
-        f1.beSigned(Corr);
-        std::cout << f1 << std::endl;
+        // f1.beSigned(Corr);
+        // std::cout << f1 << std::endl;
 
-        Form f2("Form 2", 15, 15);
-        f2.beSigned(Marg);
+        Corr.signForm(f1);
+        Marg.signForm(f1);
+
+        // Form f2("Form 2", 15, 15);
+        // f2.beSigned(Marg);
 
         // Form f3("Form 3", 15, -1);
         // Form f4("Form 4", 151, 2);

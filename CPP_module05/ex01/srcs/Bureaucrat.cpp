@@ -42,6 +42,11 @@ void    Bureaucrat::incrementGrade()
 
 void    Bureaucrat::signForm(Form &f)
 {
+    if (f.getIsSigned() == 1)
+    {
+        std::cout << "Form is already signed !" << std::endl; 
+        return;
+    }
    try {
         f.beSigned(*this);
         std::cout << "\033[32m" <<this->name << " signed " << f.getName() << "\033[0m" << std::endl;
