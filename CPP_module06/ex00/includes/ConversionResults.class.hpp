@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConversionResults.class.hpp                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:10:34 by marlonco          #+#    #+#             */
-/*   Updated: 2025/03/31 14:31:23 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:26:39 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,36 @@
 
 #include <iostream>
 
-class   ConversionResults
+enum    TypeFlag 
+{
+  Impossible,
+  Char,
+  Int,
+  Float,
+  Double,
+};
+
+class   GetConversions 
 {
     public:
-        static void *charResult;
-        static void *intResult;
-        static void *floatResult;
-        static void *doubleResult;
-
-        static void    *convertChar(const std::string str);
-        static void    *convertInt(const std::string &str);
-        static void    *convertFloat(const std::string str);
-        static void    *convertDouble(const std::string str);
+        struct ConversionResult
+        {
+            void        *value;
+            TypeFlag    type;
+            
+            ConversionResult(void *val, TypeFlag t);
+            ~ConversionResult();
+        };
+        
+        GetConversions();
+        GetConversions(const GetConversions &other);
+        GetConversions& operator=(const GetConversions &other);
+        ~GetConversions();    
+        
+        ConversionResult    convertChar(const std::string str);
+        ConversionResult    convertInt(const std::string &str);
+        ConversionResult    convertFloat(const std::string str);
+        ConversionResult    convertDouble(const std::string str);
 };
 
 #endif 

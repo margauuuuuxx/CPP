@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 12:36:32 by marlonco          #+#    #+#             */
-/*   Updated: 2025/03/31 14:28:21 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:31:13 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,42 @@ void parse(const std::string& str)
     
 }
 
+std::ostream    &operator<<(std::ostream &os, const GetConversions::ConversionResult &result)
+{
+    switch (result.type)
+    {
+        case Impossible:
+            os << "Impossible";
+            break;
+            
+        case Char:
+            os << "'" << *(char *)result.value << "'";
+            delete (char *)result.value;
+            break;
+        
+        case Int:
+            os << *(int *)result.value;
+            delete (int *)result.value;
+            break;
+        
+        case Float:
+            os << *(float *)result.value << "f";
+            delete (float *)result.value;
+            break;
+
+        case Double:
+            os << *(double *)result.value;
+            delete (double *)result.value;
+            break;
+    }
+    return (os);
+}
+
 void    display(const std::string &str)
 {
-    std::cout << "char:\t";
-    if (charFlag == 0)
-        std::cout << "impossible" << std::endl;
-    else 
-        std::cout << ConversionResults::charResult(str) << std::endl; 
+    GetConversions converter;
+    // std::cout << "char:\t" << std:;endl;
+    std::cout << "int:\t" << converter.convertInt(str) << std::endl;
 }
 
 void    ScalarConverter::Convert(const std::string str)

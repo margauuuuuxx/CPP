@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.class.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 12:04:42 by marlonco          #+#    #+#             */
-/*   Updated: 2025/03/31 14:16:43 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:28:03 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
