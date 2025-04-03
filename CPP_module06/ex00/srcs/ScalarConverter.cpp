@@ -6,16 +6,11 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 12:36:32 by marlonco          #+#    #+#             */
-/*   Updated: 2025/04/02 12:31:13 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:50:17 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ScalarConverter.class.hpp"
-
-bool    charFlag;
-bool    intFlag;
-bool    floatFlag;
-bool    doubleFlag;
 
 ScalarConverter::ScalarConverter() {}
 ScalarConverter::ScalarConverter(const ScalarConverter &other) { *this = other; }
@@ -26,14 +21,6 @@ ScalarConverter&    ScalarConverter::operator = (const ScalarConverter &other)
 }
 ScalarConverter::~ScalarConverter() {}
 
-void    initFlags()
-{
-    charFlag = 1;
-    intFlag = 1;
-    floatFlag = 1;
-    doubleFlag = 1;
-}
-
 bool    nonDisplayable(const std::string& str)
 {
     for (std::string::size_type i = 0; i < str.length(); i++)
@@ -43,8 +30,12 @@ bool    nonDisplayable(const std::string& str)
     return (0);
 }
 
-int isStr(const std::string& str)
+int isStr(const std::string& str) // return 1 if its string == more than 1 alphabetical char 
 {
+    size_t  start = 0;
+    bool    hasDigit = 0;
+    bool    hasDot = 0;
+    
     if (str == "nan" || str == "nanf"
         || str == "-inff" || str == "-inf"
         || str == "+inff" || str == "+inf")
@@ -53,16 +44,56 @@ int isStr(const std::string& str)
         intFlag = 0;
         return (0);
     }
-    else if (str.length() > 1)
-        return (1);
+    if (str[start] == '+' || str[start] == '-')
+    {
+        start++;
+        if (start >= str.length())
+        {
+            charFlag = 0;
+            return (1);
+        }  
+    }
+    if (str.length() > 1)
+    {
+        for (size_t i = start; i < str.length(); i++)
+        {
+            if (std::isdigit(str[i]))
+                hasDigit = 1;
+            else if (str[i] == '.')
+            {
+                if (hasDot)
+                    return (1);
+                hasDot = 1;
+            }
+            else if (str[i] == 'f' && i == str.length() - 1)
+                return (0);
+            // if (!std::isdigit(str[i]))
+            // {
+            //     charFlag = 0;
+            //     return (1);
+            // }
+            else 
+                return (1);
+        }
+    }
     return (0);
+}
+
+void    set_flag(int a, int b, int c, int d)
+{
+    charFlag = a;
+    intFlag = b;
+    floatFlag = c;
+    doubleFlag = d;
 }
 
 void parse(const std::string& str)
 {
+    if (str.empty())
+        set_flag(0, 0, 0, 0);
     // check si plusieurs lettres 
     if (isStr(str))
-        Utils::errorExit("String provided ..");
+        Utils::errorExit("String provided (more than 1 non-numerical character) ..");
     
     // check si lettre displayable 
     if (nonDisplayable(str))
@@ -112,6 +143,12 @@ void    display(const std::string &str)
 
 void    ScalarConverter::Convert(const std::string str)
 {
-    initFlags();
+    parse(str);
+}
+
+int main()
+{
+    std::string str = "+42.0f";
+    std::cout << str << std::endl;
     parse(str);
 }

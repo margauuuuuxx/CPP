@@ -6,14 +6,17 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:10:34 by marlonco          #+#    #+#             */
-/*   Updated: 2025/04/02 12:26:39 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:43:54 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONVERSIONRESULTS_CLASS_HPP
 #define CONVERSIONRESULTS_CLASS_HPP
 
+#include "Includes.hpp"
+
 #include <iostream>
+#include <cstdlib>
 
 enum    TypeFlag 
 {

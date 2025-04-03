@@ -1,6 +1,7 @@
 NAME		= scalar_converter 
 
-SRCS 		= srcs/main.cpp srcs/Utils.cpp srcs/ScalarConverter.cpp
+SRCS 		= srcs/Utils.cpp srcs/ScalarConverter.cpp srcs/ConversionResults.cpp
+#srcs/main.cpp
 OBJS_DIR	= objs
 INC_DIR		= includes
 OBJS		= $(patsubst srcs/%.cpp, $(OBJS_DIR)/%.o, $(SRCS))
