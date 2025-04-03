@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 12:36:32 by marlonco          #+#    #+#             */
-/*   Updated: 2025/04/03 16:50:17 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:07:48 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,18 @@ int isStr(const std::string& str) // return 1 if its string == more than 1 alpha
     return (0);
 }
 
-void    set_flag(int a, int b, int c, int d)
-{
-    charFlag = a;
-    intFlag = b;
-    floatFlag = c;
-    doubleFlag = d;
-}
+// void    set_flag(int a, int b, int c, int d)
+// {
+//     charFlag = a;
+//     intFlag = b;
+//     floatFlag = c;
+//     doubleFlag = d;
+// }
 
 void parse(const std::string& str)
 {
     if (str.empty())
-        set_flag(0, 0, 0, 0);
+        Utils::errorExit("Empty string provided ..");
     // check si plusieurs lettres 
     if (isStr(str))
         Utils::errorExit("String provided (more than 1 non-numerical character) ..");
@@ -141,14 +141,23 @@ void    display(const std::string &str)
     std::cout << "int:\t" << converter.convertInt(str) << std::endl;
 }
 
+void    initGlobals()
+{
+    charFlag = 1;
+    intFlag = 1;
+    floatFlag = 1;
+    doubleFlag = 1;
+}
+
 void    ScalarConverter::Convert(const std::string str)
 {
+    initGlobals();
     parse(str);
 }
 
 int main()
 {
-    std::string str = "+42.0f";
+    std::string str = "";
     std::cout << str << std::endl;
     parse(str);
 }

@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 12:04:42 by marlonco          #+#    #+#             */
-/*   Updated: 2025/04/03 16:44:04 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:02:49 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 #include "Utils.class.hpp"
 #include "ConversionResults.class.hpp"
-#include "Includes.hpp"
+//#include "Includes.hpp"
 
 /*
   Non-satic methods require an instance of the class to be used, that's why we use static here  
