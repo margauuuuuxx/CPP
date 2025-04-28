@@ -6,12 +6,11 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 12:36:32 by marlonco          #+#    #+#             */
-/*   Updated: 2025/04/28 16:44:24 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:40:29 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ScalarConverter.class.hpp"
-#include "../includes/Globals.hpp"
 
 ScalarConverter::ScalarConverter() {}
 ScalarConverter::ScalarConverter(const ScalarConverter &other) { *this = other; }
@@ -22,6 +21,12 @@ ScalarConverter&    ScalarConverter::operator = (const ScalarConverter &other)
 }
 ScalarConverter::~ScalarConverter() {}
 
+void    ScalarConverter::errorExit(const std::string str)
+{
+    std::cout << RED << str << RESET << std::endl;
+    exit(1);
+}
+
 bool    nonDisplayable(const std::string& str)
 {
     for (std::string::size_type i = 0; i < str.length(); i++)
@@ -31,15 +36,7 @@ bool    nonDisplayable(const std::string& str)
     return (0);
 }
 
-void    setFlags(int a, int b, int c, int d)
-{
-    charFlag = a;
-    intFlag = b;
-    floatFlag = c;
-    doubleFlag = d;
-}
-
-int isStr(const std::string& str) // return 1 if its string == more than 1 alphabetical char 
+int isStr(const std::string& str)
 {
     size_t  start = 0;
     bool    hasDigit = 0;
@@ -50,27 +47,17 @@ int isStr(const std::string& str) // return 1 if its string == more than 1 alpha
         || str == "-inff" || str == "-inff"
         || str == "+inff" || str == "+inff"
         || str == "inff")
-    {
-        charFlag = 0;
-        intFlag = 0;
          return (0);
-    }
     
-    while (str[start] == '+' || str[start] == '-')  // CASE WHERE MISMATCH + / - 
+    while (str[start] == '+' || str[start] == '-') 
      {
         if (lastSign != '\0' && str[start] != lastSign)
-        {
-            setFlags(0, 0, 0, 0);
             return (1);
-        }
         lastSign = str[start];
         start++;
      }   
-    if (start >= str.length() && start > 1) // only +/-
-        {
-            setFlags(0, 0, 0, 0);
+    if (start >= str.length() && start > 1)
             return (1);
-        }
     
     if (str.length() > 1)
     {
@@ -96,17 +83,13 @@ int isStr(const std::string& str) // return 1 if its string == more than 1 alpha
 void parse(const std::string& str)
 {
     if (str.empty())
-        Utils::errorExit("Empty string provided ..");
+        ScalarConverter::errorExit("Empty string provided ..");
         
-    // check si plusieurs lettres 
     if (isStr(str))
-        Utils::errorExit("String provided (more than 1 non-numerical character) ..");
+        ScalarConverter::errorExit("String provided (more than 1 non-numerical character) ..");
     
-    // check si lettre displayable 
     if (nonDisplayable(str))
-        Utils::errorExit("Non displaybale character provided ..");
-    
-    // check en fct des case si c'est au dela de la limite
+        ScalarConverter::errorExit("Non displaybale character provided ..");
 }
 
 std::ostream    &operator<<(std::ostream &os, const GetConversions::ConversionResult &result)
@@ -119,6 +102,10 @@ std::ostream    &operator<<(std::ostream &os, const GetConversions::ConversionRe
             
         case NonDisplayable:
             os << "Non displayable";
+            break;
+
+        case Limit:
+            os << "Not between variable type limits";
             break;
                 
         case Char:
@@ -140,7 +127,10 @@ std::ostream    &operator<<(std::ostream &os, const GetConversions::ConversionRe
             break;
 
         case Double:
-            os << *(double *)result.value;
+            if (static_cast<double>(static_cast<int>(*(double *)result.value)) == *(double *)result.value)
+                os << *(double *)result.value << ".0";
+            else
+                os << *(double *)result.value;
             delete (double *)result.value;
             break;
     }
@@ -149,35 +139,24 @@ std::ostream    &operator<<(std::ostream &os, const GetConversions::ConversionRe
 
 void    ScalarConverter::Convert(const std::string str)
 {
+    std::string s;
+    GetConversions  converter;
+    
     parse(str);
 
-    GetConversions  converter;
-
-    GetConversions::ConversionResult charResult = converter.convertChar(str);
-    GetConversions::ConversionResult intResult = converter.convertInt(str);
-    GetConversions::ConversionResult floatResult = converter.convertFloat(str);
-    GetConversions::ConversionResult doubleResult = converter.convertDouble(str);
+    s = str;
+    if (s.length() > 1 && s[s.length() - 1] == 'f')
+        s = s.substr(0, s.length() - 1);
+        
+    GetConversions::ConversionResult charResult = converter.convertChar(s);
+    GetConversions::ConversionResult intResult = converter.convertInt(s);
+    GetConversions::ConversionResult floatResult = converter.convertFloat(s);
+    GetConversions::ConversionResult doubleResult = converter.convertDouble(s);
 
     std::cout << "char:\t" << charResult << std::endl;
     std::cout << "int:\t" << intResult << std::endl;
     std::cout << "float:\t" << floatResult << std::endl;
     std::cout << "double:\t" << doubleResult << std::endl;
-}
-
-int main(int argc, char **argv)
-{
-    (void)argc;
-    if (argv[1])
-    {
-        std::cout << "Input: " << argv[1] << std::endl;
-        parse(argv[1]);  
-    }
-    std::cout << "Char flag = " << charFlag << std::endl;
-    std::cout << "Int flag = " << intFlag << std::endl;
-    std::cout << "Float flag = " << floatFlag << std::endl;
-    std::cout << "Double flag = " << doubleFlag << std::endl;
-
-    ScalarConverter::Convert(argv[1]);
 }
 
 /*

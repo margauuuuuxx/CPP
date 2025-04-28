@@ -6,28 +6,14 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:30:23 by marlonco          #+#    #+#             */
-/*   Updated: 2025/04/28 16:43:04 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:31:39 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ConversionResults.class.hpp"
 
 GetConversions::ConversionResult::ConversionResult(void *val, TypeFlag t) : value(val), type(t) {}
-GetConversions::ConversionResult::~ConversionResult()
-{
-    // if (type != Impossible && value != NULL)
-    // {
-    //     if (type == Char)
-    //         delete (char *)value;
-    //     else if (type == Int)
-    //         delete (int *)value;
-    //     else if (type == Float)
-    //         delete (float *)value;
-    //     else if (type == Double)
-    //         delete (double *)value;
-    // }
-}
-
+GetConversions::ConversionResult::~ConversionResult() {}
 GetConversions::GetConversions() {}
 GetConversions::GetConversions(const GetConversions &other) { *this = other; }
 GetConversions& GetConversions::operator = (const GetConversions &other)
@@ -43,7 +29,7 @@ GetConversions::ConversionResult    GetConversions::convertChar(const std::strin
     char    *result;
     int     value;
     
-    if (str.length() == 1)
+    if (str.length() == 1 && !std::isdigit(static_cast<unsigned char>(str[0])))
     {
         if (std::isprint(static_cast<unsigned char>(str[0])))
         {
@@ -66,42 +52,63 @@ GetConversions::ConversionResult    GetConversions::convertChar(const std::strin
 GetConversions::ConversionResult    GetConversions::convertInt(const std::string &str)
 {
     std::stringstream ss(str);
-    int value;
-    int *result;
+    int     value;
+    int     roundedValue;
+    float   fvalue;
+    double  dvalue;
 
-    if (str.length() == 1 && std::isprint(static_cast<unsigned char>(str[0])))
-    {
-        result = new int(static_cast<int>(str[0]));
-        return (ConversionResult(result, Int));    
-    }
+    if (str.length() == 1 && std::isprint(static_cast<unsigned char>(str[0])) && !std::isdigit(static_cast<unsigned char>(str[0])))
+        return (ConversionResult(new int(static_cast<int>(str[0])), Int));    
 
     ss >> value;
     if (ss.fail() || !ss.eof())
+    {
+        ss.clear();
+        ss.str(str);
+        if (ss >> fvalue)
+        {
+            if (std::isnan(fvalue) || std::isinf(fvalue))
+                return (ConversionResult((void *)"Impossible", Impossible));
+            roundedValue = static_cast<int>(std::roundf(fvalue));
+            if (roundedValue > INT16_MAX || roundedValue < INT16_MIN)
+                return (ConversionResult((void *)"Not between variable type limits", Limit));
+            return (ConversionResult(new int(roundedValue), Int)); 
+        }
+        ss.clear();
+        ss.str(str);
+        if (ss >> dvalue)
+        {
+             if (std::isnan(dvalue) || std::isinf(dvalue))
+                return (ConversionResult((void *)"Impossible", Impossible));
+            roundedValue = static_cast<int>(std::round(dvalue));
+            if (roundedValue > INT16_MAX || roundedValue < INT16_MIN)
+                return (ConversionResult((void *)"Not between variable type limits", Limit));
+            return (ConversionResult(new int(roundedValue), Int));
+        }
         return (ConversionResult((void *)"Impossible", Impossible));
-    result = new int(value);
-    return (ConversionResult(result, Int));
+    }
+    return (ConversionResult(new int(value), Int));
 }
 
 GetConversions::ConversionResult    GetConversions::convertFloat(const std::string &str)
 {
     std::stringstream   ss(str);
-    float   *result;
     float   value;
 
-    result = NULL;
     if (str == "nan" || str == "nanf")
         return (ConversionResult(new float (NAN), Float));
     else if (str == "+inff" || str == "-inff" || str == "inff")
         return (ConversionResult(new float(str == "+inff" ? INFINITY : -INFINITY), Float));
     
-    if (str.length() == 1)
+    if (str.length() == 1 && !std::isdigit(static_cast<unsigned char>(str[0])))
         return(ConversionResult(new float(static_cast<float>(static_cast<int>(str[0]))), Float));
 
     ss >> value;
     if (ss.fail() || !ss.eof())
         return (ConversionResult((void *)"Impossible", Impossible));
-    result = new float(value);
-    return (ConversionResult(result, Float));
+    if (value > FLT_MAX || value < -FLT_MAX)
+        return (ConversionResult((void *)"Not between variable type limits", Limit)); 
+    return (ConversionResult(new float(value), Float));
 }
 
 GetConversions::ConversionResult    GetConversions::convertDouble(const std::string &str)
@@ -114,11 +121,13 @@ GetConversions::ConversionResult    GetConversions::convertDouble(const std::str
     else if (str == "+inff" || str == "-inff" || str == "inff")
         return (ConversionResult(new double(str == "+inff" ? INFINITY : -INFINITY), Double));
 
-    if (str.length() == 1)
+    if (str.length() == 1 && !std::isdigit(static_cast<unsigned char>(str[0])))
         return(ConversionResult(new double(static_cast<double>(static_cast<int>(str[0]))), Double));
 
     ss >> value;
     if (ss.fail() || !ss.eof())
         return (ConversionResult((void *)"Impossible", Impossible));
+    if (value > DBL_MAX || value < -DBL_MAX)
+        return (ConversionResult((void *)"Not between variable type limits", Limit));
     return (ConversionResult(new double(value), Double));
 }
