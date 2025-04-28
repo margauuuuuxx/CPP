@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 12:36:32 by marlonco          #+#    #+#             */
-/*   Updated: 2025/04/28 12:11:52 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/04/28 16:44:24 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ int isStr(const std::string& str) // return 1 if its string == more than 1 alpha
     char    lastSign = '\0';
     
     if (str == "nan" || str == "nanf"
-        || str == "-inff" || str == "-inf"
-        || str == "+inff" || str == "+inf")
+        || str == "-inff" || str == "-inff"
+        || str == "+inff" || str == "+inff"
+        || str == "inff")
     {
         charFlag = 0;
         intFlag = 0;
@@ -116,6 +117,10 @@ std::ostream    &operator<<(std::ostream &os, const GetConversions::ConversionRe
             os << "Impossible";
             break;
             
+        case NonDisplayable:
+            os << "Non displayable";
+            break;
+                
         case Char:
             os << "'" << *(char *)result.value << "'";
             delete (char *)result.value;
@@ -127,7 +132,10 @@ std::ostream    &operator<<(std::ostream &os, const GetConversions::ConversionRe
             break;
         
         case Float:
-            os << *(float *)result.value << "f";
+            if (static_cast<float>(static_cast<int>(*(float *)result.value)) == *(float *)result.value)
+                os << *(float *)result.value << ".0f";
+            else 
+                os << *(float *)result.value << "f";
             delete (float *)result.value;
             break;
 
@@ -139,31 +147,25 @@ std::ostream    &operator<<(std::ostream &os, const GetConversions::ConversionRe
     return (os);
 }
 
-void    display(const std::string &str)
-{
-    GetConversions converter;
-    // std::cout << "char:\t" << std:;endl;
-    std::cout << "int:\t" << converter.convertInt(str) << std::endl;
-}
-
-// 1 if the variable type is printable 
-// void    initGlobals()
-// {
-//     charFlag = 1;
-//     intFlag = 1;
-//     floatFlag = 1;
-//     doubleFlag = 1;
-// }
-
 void    ScalarConverter::Convert(const std::string str)
 {
-    // initGlobals();
     parse(str);
+
+    GetConversions  converter;
+
+    GetConversions::ConversionResult charResult = converter.convertChar(str);
+    GetConversions::ConversionResult intResult = converter.convertInt(str);
+    GetConversions::ConversionResult floatResult = converter.convertFloat(str);
+    GetConversions::ConversionResult doubleResult = converter.convertDouble(str);
+
+    std::cout << "char:\t" << charResult << std::endl;
+    std::cout << "int:\t" << intResult << std::endl;
+    std::cout << "float:\t" << floatResult << std::endl;
+    std::cout << "double:\t" << doubleResult << std::endl;
 }
 
 int main(int argc, char **argv)
 {
-    std::cout << "HELLOOOOO" << std::endl;
     (void)argc;
     if (argv[1])
     {
@@ -174,6 +176,8 @@ int main(int argc, char **argv)
     std::cout << "Int flag = " << intFlag << std::endl;
     std::cout << "Float flag = " << floatFlag << std::endl;
     std::cout << "Double flag = " << doubleFlag << std::endl;
+
+    ScalarConverter::Convert(argv[1]);
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConversionResults.class.hpp                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:10:34 by marlonco          #+#    #+#             */
-/*   Updated: 2025/04/28 11:39:22 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/04/28 16:09:01 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <sstream>
 
 enum    TypeFlag 
 {
   Impossible,
+  NonDisplayable,
   Char,
   Int,
   Float,
@@ -44,10 +46,10 @@ class   GetConversions
         GetConversions& operator=(const GetConversions &other);
         ~GetConversions();    
         
-        ConversionResult    convertChar(const std::string str);
+        ConversionResult    convertChar(const std::string &str);
         ConversionResult    convertInt(const std::string &str);
-        ConversionResult    convertFloat(const std::string str);
-        ConversionResult    convertDouble(const std::string str);
+        ConversionResult    convertFloat(const std::string &str);
+        ConversionResult    convertDouble(const std::string &str);
 };
 
 #endif 
