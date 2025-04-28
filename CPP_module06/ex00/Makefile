@@ -1,6 +1,6 @@
-NAME		= scalar_converter 
+NAME		= converter 
 
-SRCS 		= srcs/Utils.cpp srcs/ScalarConverter.cpp srcs/ConversionResults.cpp
+SRCS 		= srcs/Globals.cpp srcs/Utils.cpp srcs/ScalarConverter.cpp srcs/ConversionResults.cpp 
 #srcs/main.cpp
 OBJS_DIR	= objs
 INC_DIR		= includes
