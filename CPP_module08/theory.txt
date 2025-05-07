@@ -1,0 +1,34 @@
+***** CONTAINERS *****
+
+container = holder object that stores a collection of other objects 
+            --> implemented as class templates : great for data types flexibility 
+
+1. Sequence containers : linear data structs, sequential access
+                    --> array, vector, deque, (forward) list
+2. Associative containers : sorted order storage, fast search, insert/delete, key-value 
+                    --> (multi)set, (multi)map
+3. Unordered associative containers : hashed data structs 
+                    --> unordered associative containers
+4. Container adapters : adapt for specific use cases 
+                    --> stack, (priority) queue
+
+***** ITERATORS *****
+
+iterator = ptrs for containers 
+
+***** ALGORITHMS *****
+
+algo = like fcts to use on containers 
+
+***** EXAMPLES *****
+1. Vector:
+    std::vector<int> v;
+    v.push_back(1);
+
+2. Map:
+    std::map<std::string, int> m;
+    m["a"] = 1;
+
+3. Set:
+    std::set<int> s;
+    s.insert(5);
