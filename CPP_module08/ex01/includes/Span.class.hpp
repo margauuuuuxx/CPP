@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <stdexcept>
+#include <algorithm>
+#include <limits>
 
 class   Span
 {
