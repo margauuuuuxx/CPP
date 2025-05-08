@@ -1,6 +1,6 @@
 NAME		= span 
 
-SRCS 		= srcs/main.cpp
+SRCS 		= srcs/main.cpp srcs/Span.cpp
 OBJS_DIR	= objs
 INC_DIR		= includes
 OBJS		= $(patsubst srcs/%.cpp, $(OBJS_DIR)/%.o, $(SRCS))

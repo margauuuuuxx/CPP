@@ -20,17 +20,6 @@ void    Span::addNumber(int nbr)
     this->_data.push_back(nbr);
 }
 
-template <typename T>
-void    Span::addRange(T begin, T end)
-{
-    size_t  rangeSize;
-
-    rangeSize = std::distance(begin, end);
-    if (this->_data.size() + rangeSize > this->_N)
-        throw std::runtime_error("\033[38;5;208mMax number of elements atained: cannot add another number\033[0m");
-    this->_data.insert(_data.end(), begin, end);
-}
-
 int Span::shortestSpan() const
 {
     if (_data.size()< 2)
@@ -58,4 +47,13 @@ int Span::longestSpan() const
     int minVal = *std::min_element(_data.begin(), _data.end());
     int maxVal = *std::max_element(_data.begin(), _data.end());
     return (maxVal - minVal);
+}
+
+int Span::getSize() const { return (_N); }
+
+int Span::getElement(unsigned int i) const
+{
+    if (i >= _N)
+        throw std::runtime_error("\033[38;5;208mCannot find data element because index is out of range\033[0m");
+    return (_data[i]);
 }
