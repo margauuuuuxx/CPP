@@ -3,12 +3,15 @@
 #include "../includes/C.class.hpp"
 #include "../includes/Base.class.hpp"
 
+#include <cstdlib>
+#include <ctime>
+
 Base*   generate(void)
 {
     int r;
 
-    std::srand(std::time(0));
-    r = std::rand() % 3;
+    srand(time(0));
+    r = rand() % 3;
     switch (r)
     {
         case 0 : return new A();

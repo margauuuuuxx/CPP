@@ -2,6 +2,7 @@
 #define BASE_CLASS_HPP
 
 #include <iostream>
+#include <typeinfo>
 
 class Base
 {
