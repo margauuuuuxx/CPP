@@ -3,7 +3,6 @@
 
 #include "Bureaucrat.class.hpp"
 #include <iostream>
-#include <cstdbool>
 #include <stdexcept>
 
 class Bureaucrat;
@@ -27,7 +26,7 @@ class AForm
         int getGradeSign() const;
         int getGradeExec() const;
         void beSigned(Bureaucrat &b);
-        virtual void execute(Bureaucrat const & executor) const = 0;
+        virtual void execute(Bureaucrat const & executor) const = 0; // this pure virtual function is what makes the class abstract 
         void checkExecution(const Bureaucrat &b) const;   
 
         class FormNotSignedException : public std::exception
