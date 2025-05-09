@@ -3,7 +3,6 @@
 
 #include "Bureaucrat.class.hpp"
 #include <iostream>
-#include <cstdbool>
 #include <stdexcept>
 
 class Bureaucrat;
@@ -20,7 +19,7 @@ class AForm
         AForm(const std::string &name, const int &gradeSign, const int &gradeExec);
         AForm(const AForm &other);
         AForm& operator=(const AForm &other);
-        ~AForm();
+        virtual ~AForm();
 
         std::string getName() const;
         bool getIsSigned() const;
