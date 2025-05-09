@@ -3,7 +3,6 @@
 
 #include "Bureaucrat.class.hpp"
 #include <iostream>
-#include <cstdbool>
 
 class Bureaucrat;
 
