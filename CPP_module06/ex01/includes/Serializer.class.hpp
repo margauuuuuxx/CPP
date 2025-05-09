@@ -1,8 +1,8 @@
 #ifndef SERIALIZER_CLASS_HPP
 #define SERIALIZER_CLASS_HPP
 
-#include <cstdint>
 #include <iostream>
+#include <stdint.h>
 
 // a class has DEFAULT PUBLIC ACCESS 
 struct Data
