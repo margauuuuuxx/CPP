@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 12:36:32 by marlonco          #+#    #+#             */
-/*   Updated: 2025/04/28 17:40:29 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/05/09 11:19:05 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,9 @@ void    ScalarConverter::Convert(const std::string str)
     parse(str);
 
     s = str;
-    if (s.length() > 1 && s[s.length() - 1] == 'f')
+    if (s.length() > 1 && s[s.length() - 1] == 'f' 
+            && s != "inff" && s != "-inff" && s != "+inff"
+            && s != "nanf")
         s = s.substr(0, s.length() - 1);
         
     GetConversions::ConversionResult charResult = converter.convertChar(s);

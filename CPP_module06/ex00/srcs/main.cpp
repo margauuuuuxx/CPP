@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 12:15:29 by marlonco          #+#    #+#             */
-/*   Updated: 2025/04/28 17:40:50 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/05/09 10:54:05 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,4 @@ int main(int argc, char **argv)
         ScalarConverter::Convert(argv[1]);
     else
         ScalarConverter::errorExit("Too many or too little arguments provided ..");
-
-    // QUID ++++---- ???
 }

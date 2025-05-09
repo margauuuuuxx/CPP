@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConversionResults.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:30:23 by marlonco          #+#    #+#             */
-/*   Updated: 2025/04/28 17:31:39 by marlonco         ###   ########.fr       */
+/*   Updated: 2025/05/09 11:19:29 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ GetConversions::~GetConversions() {}
 
 GetConversions::ConversionResult    GetConversions::convertChar(const std::string &str)
 {
-    std::stringstream ss(str);
     char    *result;
-    int     value;
     
     if (str.length() == 1 && !std::isdigit(static_cast<unsigned char>(str[0])))
     {
@@ -36,14 +34,18 @@ GetConversions::ConversionResult    GetConversions::convertChar(const std::strin
             result = new char(str[0]);
             return (ConversionResult(result, Char));
         }
+        return (ConversionResult((void *)"Non Displayable", NonDisplayable));
     }
     
+    std::stringstream ss(str);
+    double  value;
     ss >> value;
     if (ss.fail() || !ss.eof())
         return (ConversionResult((void *)"Impossible", Impossible));
-    if (value < 0 || value > 127)
+    int ivalue = static_cast<int>(value);
+    if (ivalue < 0 || ivalue > 127)
         return (ConversionResult((void *)"Impossible", Impossible));
-    if (value < 32 || value == 127)
+    if (ivalue < 32 || ivalue == 127)
         return(ConversionResult((void *)"Non Displayable", NonDisplayable));
     result = new char(static_cast<char>(value));
     return (ConversionResult(result, Char));
@@ -53,40 +55,20 @@ GetConversions::ConversionResult    GetConversions::convertInt(const std::string
 {
     std::stringstream ss(str);
     int     value;
-    int     roundedValue;
-    float   fvalue;
     double  dvalue;
 
     if (str.length() == 1 && std::isprint(static_cast<unsigned char>(str[0])) && !std::isdigit(static_cast<unsigned char>(str[0])))
         return (ConversionResult(new int(static_cast<int>(str[0])), Int));    
 
-    ss >> value;
+    ss >> dvalue;
     if (ss.fail() || !ss.eof())
-    {
-        ss.clear();
-        ss.str(str);
-        if (ss >> fvalue)
-        {
-            if (std::isnan(fvalue) || std::isinf(fvalue))
-                return (ConversionResult((void *)"Impossible", Impossible));
-            roundedValue = static_cast<int>(std::roundf(fvalue));
-            if (roundedValue > INT16_MAX || roundedValue < INT16_MIN)
-                return (ConversionResult((void *)"Not between variable type limits", Limit));
-            return (ConversionResult(new int(roundedValue), Int)); 
-        }
-        ss.clear();
-        ss.str(str);
-        if (ss >> dvalue)
-        {
-             if (std::isnan(dvalue) || std::isinf(dvalue))
-                return (ConversionResult((void *)"Impossible", Impossible));
-            roundedValue = static_cast<int>(std::round(dvalue));
-            if (roundedValue > INT16_MAX || roundedValue < INT16_MIN)
-                return (ConversionResult((void *)"Not between variable type limits", Limit));
-            return (ConversionResult(new int(roundedValue), Int));
-        }
         return (ConversionResult((void *)"Impossible", Impossible));
-    }
+    if (std::isnan(dvalue) || std::isinf(dvalue))
+        return (ConversionResult((void *)"Impossible", Impossible));
+    if (dvalue > static_cast<double>(INT_MAX) || dvalue < static_cast<double>(INT_MIN))
+        return (ConversionResult((void *)"Not between variable type limits", Limit));
+
+    value = static_cast<int>(dvalue);
     return (ConversionResult(new int(value), Int));
 }
 
