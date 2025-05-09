@@ -20,7 +20,11 @@ int main()
 
     std::cout << std::endl;
     std::cout << "***** trying to access an invalid index *****" << std::endl;
-    std::cout << b[6] << std::endl;
+    try {
+        std::cout << b[6] << std::endl;
+    } catch (const std::out_of_range& e) {
+        std::cerr << "Caught exception : " << e.what() << std::endl;
+    }
 
     return (0);
 }
