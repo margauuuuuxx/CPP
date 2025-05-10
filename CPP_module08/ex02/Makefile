@@ -1,4 +1,4 @@
-NAME		= abomination 
+NAME		= mutantstack 
 
 SRCS 		= srcs/main.cpp
 OBJS_DIR	= objs
