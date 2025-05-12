@@ -49,7 +49,11 @@ int main()
 
     std::cout << std::endl;
     std::cout << "***** TEST TO GO ABOVE SIZE *****" << std::endl;
-    S2.addNumber(888);
+    try{
+        S2.addNumber(888);
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
 
     return (0);
 }
