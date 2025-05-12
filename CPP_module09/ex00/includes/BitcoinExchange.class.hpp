@@ -6,6 +6,7 @@
 #include <sstream>
 #include <map>
 #include <string>
+#include <cstdlib>
 
 class BitcoinExchange
 {
@@ -21,5 +22,21 @@ class BitcoinExchange
 };
 
 void    parseFile(std::string str);
+
+static const int    gDaysInMonth[13] = {
+    0,
+    31,
+    28,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31
+};
 
 #endif
