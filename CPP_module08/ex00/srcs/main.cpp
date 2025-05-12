@@ -36,8 +36,14 @@ int main()
         std::cout << std::fixed << std::setprecision(i + 1) << *itl << std::endl;
         i++;
     }
-    // std::list<float>::iterator itlf = easyfind(l, 5);
-    // std::cout << "Found: " << *itlf << std::endl;
+    try
+    {
+        std::list<float>::iterator itlf = easyfind(l, 5);
+        std::cout << "Found: " << *itlf << std::endl;
+    } catch(const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+    
 
     std::cout << std::endl;
     std::cout << "***** TEST WITH SET *****" << std::endl;
