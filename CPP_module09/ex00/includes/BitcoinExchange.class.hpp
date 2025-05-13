@@ -21,7 +21,6 @@ class BitcoinExchange
 
         void    parseLine(std::string &line);
         void    parseLineData(std::string &line);
-        void    processData();
 
     public:
         BitcoinExchange();
@@ -31,7 +30,7 @@ class BitcoinExchange
 
 
         void parseFile(std::ifstream& file, MapMode mode);
-        std::map<std::string, float>    getDataMap();
+        const std::map<std::string, float>&    getDataMap() const;
 };
 
 

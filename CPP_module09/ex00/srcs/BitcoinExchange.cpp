@@ -1,7 +1,5 @@
 #include "../includes/BitcoinExchange.class.hpp"
 
-// TO DO
-
 BitcoinExchange::BitcoinExchange() {}
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &other) { *this = other; } 
 BitcoinExchange&    BitcoinExchange::operator = (const BitcoinExchange & other) 
@@ -14,24 +12,18 @@ BitcoinExchange::~BitcoinExchange() {}
 
 // ***** GETTERS *****
 
-std::map<std::string, float>    BitcoinExchange::getDataMap() { return (this->_dataMap); }
+const std::map<std::string, float>&    BitcoinExchange::getDataMap() const { return (this->_dataMap); }
 
 // ***** PARSING FCTS *****
 
 bool    parseValue(std::string str)
 {
-    bool    hasDot = 0;
-    for (size_t i = 0; i < str.length(); ++i)
-    {
-        if (str[i] == '.')
-        {
-            if (hasDot || i == 0 || i == str.length() - 1)
-                return (1);
-            hasDot = 1;
-        }
-        else if (!std::isdigit(str[i]))
-            return (1);
-    }
+    std::stringstream ss(str);
+    float val;
+
+    ss >> val;
+    if (ss.fail() || !ss.eof())
+        return (1);
 
     int value = std::atoi(str.c_str());
     if (value < 0 || value > 1000)
@@ -106,8 +98,12 @@ void    BitcoinExchange::parseLine(std::string& line)
     if (it == _dataMap.end())
     {
         it = _dataMap.upper_bound(first);
-        if (it != _dataMap.end())
-            --it;
+        if (it == _dataMap.begin())
+        {
+            std::cerr << "\e[31mError: no earlier exchange rate available for " << first << "\e[0m" << std::endl;
+            return;
+        }
+        --it;
     }
     float   result = value * it->second;
     std::cout << first << " => " << value << " = " << result << std::endl;
