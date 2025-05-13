@@ -8,9 +8,21 @@
 #include <string>
 #include <cstdlib>
 
+enum MapMode
+{
+    VALUE_MAP,
+    DATA_MAP
+};
+
 class BitcoinExchange
 {
     private:
+        std::map<std::string, float>    _dataMap;
+        std::multimap<std::string, float>    _valueMap;
+
+        void    parseLine(std::string &line, MapMode mode);
+        void    parseData();
+        void    processData();
 
     public:
         BitcoinExchange();
@@ -19,9 +31,11 @@ class BitcoinExchange
         ~BitcoinExchange();
 
 
+        void parseFile(std::ifstream& file, MapMode mode);
+        std::map<std::string, float>    getDataMap();
+        std::multimap<std::string, float>   getValueMap();
 };
 
-void    parseFile(std::string str);
 
 static const int    gDaysInMonth[13] = {
     0,
@@ -38,5 +52,6 @@ static const int    gDaysInMonth[13] = {
     30,
     31
 };
+
 
 #endif

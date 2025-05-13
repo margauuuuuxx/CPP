@@ -15,6 +15,35 @@ BitcoinExchange&    BitcoinExchange::operator = (const BitcoinExchange & other)
 }
 BitcoinExchange::~BitcoinExchange() {}
 
+void    BitcoinExchange::processData()
+{
+    for (std::multimap<std::string, float>::const_iterator it = _valueMap.begin(); it != _valueMap.end(); ++it)
+    {
+        const std::string&  date = it->first;
+        float               value = it->second;
+        float               result;
+
+        std::map<std::string, float>::const_iterator    dataIt = _dataMap.find(date);
+        if (dataIt != _dataMap.end())
+            result = value * dataIt->second;
+        else
+        {
+            dataIt = _dataMap.upper_bound(date);
+            if (dataIt != _dataMap.end())
+            {
+                --dataIt;
+                result = value * dataIt->second;
+            }
+        }
+        std::cout << date << " => " << value << " = " << result << std::endl;
+    }
+}
+
+// ***** GETTERS *****
+
+std::map<std::string, float>    BitcoinExchange::getDataMap() { return (this->_dataMap); }
+std::multimap<std::string, float>    BitcoinExchange::getValueMap() { return (this->_valueMap); }  
+
 // ***** PARSING FCTS *****
 
 bool    parseValue(std::string str)
@@ -65,7 +94,7 @@ bool    parseDate(std::string date)
     return (0);
 }
 
-void    parseLine(std::string& line)
+void    BitcoinExchange::parseLine(std::string& line, MapMode mode)
 {
     std::istringstream  iss(line);
     std::string word;
@@ -90,12 +119,15 @@ void    parseLine(std::string& line)
         return;
     }
 
-
+    float value = std::atof(third.c_str());
+    if (mode == VALUE_MAP)
+        _valueMap.insert(std::make_pair(first, value));
+    else 
+        _dataMap[first] = value;
 }
 
-void    parseFile(std::string str)
+void BitcoinExchange::parseFile(std::ifstream& file, MapMode mode)
 {
-    std::ifstream   file(str.c_str());
     if (!file.is_open())
     {
         std::cerr << "\e[31mError: could not open the file ...\e[0m" << std::endl;
@@ -105,22 +137,18 @@ void    parseFile(std::string str)
     if (file.peek() == std::ifstream::traits_type::eof())
     {
         std::cerr << "\e[31mError: file is empty ...\e[0m" << std::endl;
-        file.close();
         return;
     }
 
     std::string line;
     if (std::getline(file, line))
     {
-        if (line != "date | value")
+        if (line != "date | value" || line != "date,exchange_rate")
         {
-            std::cerr << "\e[31mError: expected header 'date | value' ...\e[0m" << std::endl;
-            file.close();
+            std::cerr << "\e[31mError: wrong file header ...\e[0m" << std::endl;
             return;
         }
     }
     while (std::getline(file, line))
-        parseLine(line);
-
-    file.close();
+        parseLine(line, mode);
 }
