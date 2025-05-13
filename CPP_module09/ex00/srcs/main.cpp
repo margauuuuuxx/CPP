@@ -23,19 +23,13 @@ int main(int argc, char **argv)
     }
     btc.parseFile(dataFile, DATA_MAP);
 
+    std::ifstream   file(argv[1]);
+    if (!file)
     {
         std::cerr << "\e[31mError: failed to open " << argv[1] << "..\e[0m" << std::endl;
         return (1);
     }
-    std::ifstream   file(argv[1]);
     btc.parseFile(file, VALUE_MAP);
-
-
-    std::multimap<std::string, float> map = btc.getValueMap();
-    std::cout << "***** VALUE MAP *****" << std::endl;
-    std::map<std::string, float>::iterator it;
-    for (it = map.begin(); it != map.end(); ++it)
-        std::cout << "Key = " << it->first << "; value = " << it->second << std::endl; 
         
     return (0);
 }

@@ -18,10 +18,9 @@ class BitcoinExchange
 {
     private:
         std::map<std::string, float>    _dataMap;
-        std::multimap<std::string, float>    _valueMap;
 
-        void    parseLine(std::string &line, MapMode mode);
-        void    parseData();
+        void    parseLine(std::string &line);
+        void    parseLineData(std::string &line);
         void    processData();
 
     public:
@@ -33,7 +32,6 @@ class BitcoinExchange
 
         void parseFile(std::ifstream& file, MapMode mode);
         std::map<std::string, float>    getDataMap();
-        std::multimap<std::string, float>   getValueMap();
 };
 
 
