@@ -1,5 +1,7 @@
 #include "../includes/RPN.class.hpp"
 
+RPN::RPN() {}
+
 RPN::RPN(std::string input)
 {
     std::istringstream  iss(input);

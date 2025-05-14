@@ -11,6 +11,7 @@ class RPN
 {
     private:
         std::stack<int> _stack;
+        RPN();
 
     public:
         RPN(std::string input);
