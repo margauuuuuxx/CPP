@@ -61,10 +61,19 @@ bool    parseDate(std::string date)
 void    BitcoinExchange::parseLineData(std::string &line)
 {
     std::string::size_type  commaPos = line.find(',');
+
+    if (commaPos == std::string::npos || commaPos == 0 || commaPos == line.length() - 1)
+        throw::std::runtime_error("\e[31mError: Parsing of the data file ...\e[0m");
+
     std::string date = line.substr(0, commaPos);
+    if (parseDate(date))
+        throw::std::runtime_error("\e[31mError: Invalid date the data file ...\e[0m");
+
     std::string valueStr = line.substr(commaPos + 1);
     float value = std::atof(valueStr.c_str());
-    std::cout << "Data date = " << date << " data value = " << value << std::endl;
+    if (value < 0)
+        throw::std::runtime_error("\e[31mError: Negative value in the data file ...\e[0m");
+
     _dataMap[date] = value;
 }
 
