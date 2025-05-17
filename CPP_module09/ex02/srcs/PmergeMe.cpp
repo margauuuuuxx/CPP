@@ -1,22 +1,54 @@
 #include "../includes/PmergeMe.class.hpp"
 
-// ***** BASICS *****
-PmergeMe::PmergeMe() : compsNbr(0) {}
-
-PmergeMe::PmergeMe(const PmergeMe &other) {*this = other; }
-
-PmergeMe&    PmergeMe:: operator = (const PmergeMe &other)
+// ***** UTILS *****
+template <typename T>
+void    display(const T& container)
 {
-    if (this != &other)
-        std::cout << std::endl;
-        //implement
-    return (*this);
+    typename T::const_iterator  it;
+    for (it = T.begin(); it != T.end(); ++it)
+        std::cout << *it << " ";
+    std::endl;
 }
 
-PmergeMe::~PmergeMe() {}
+// ***** SORTING FCTS *****
+template <typename T>
+static T    sort(const T& container)
+{
+    T = result;
+    return (result);
+}
 
-// ***** PARSING FCTS ******
-void    PmergeMe::parse(int count, char **argv)
+// ***** SORTING FCTS ******
+void    PmergeMe::initTime()
+{
+    std::cout << "Before: ";
+    display(_deque);
+
+    std::clock_t    start;
+    std::clock_t    end;
+
+    start = std::clock();
+    std::list<int> resList = sort(_list);
+    end = std::clock();
+    double listT = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000;
+
+    start = std::clock();
+    _deque = sort(_deque);
+    end = std::clock();
+    double dequeT = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000;
+
+    std::cout << "After: ";
+    display(_list);
+
+    std::cout << "Time to sort with a deque container:\t" << dequeT << " of a size:\t" << _deque.size() << std::endl;
+    std::cout << "Time to sort with a list container:\t" << listT << " of a size:\t" << _list.size() << std::endl;
+}
+
+
+// ***** BASICS *****
+PmergeMe::PmergeMe() {}
+
+PmergeMe::PmergeMe(int count, char **argv)
 {
     for (int i = 0; i < count; ++i)
     {
@@ -28,7 +60,23 @@ void    PmergeMe::parse(int count, char **argv)
         this->_deque.push_back(value);
         this->_list.push_back(value);
     }
+
+    initTime();
 }
+
+PmergeMe::PmergeMe(const PmergeMe &other) {*this = other; }
+
+PmergeMe&    PmergeMe:: operator = (const PmergeMe &other)
+{
+    if (this != &other)
+    {
+        this->_deque = other._deque;
+        this->_list = other._list;
+    }
+    return (*this);
+}
+
+PmergeMe::~PmergeMe() {}
 
 // ***** GETTERS *****
 std::list<int>  PmergeMe::getList() { return (this->_list); }

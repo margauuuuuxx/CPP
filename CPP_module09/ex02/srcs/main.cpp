@@ -8,10 +8,8 @@ int main(int argc, char **argv)
         return (1);
     }
 
-    PmergeMe pm;
-
     try {
-        pm.parse(argc - 1, argv + 1);
+        PmergeMe pm(argc - 1, argv + 1);
 
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;

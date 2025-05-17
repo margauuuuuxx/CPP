@@ -9,21 +9,24 @@
 #include <sstream>
 #include <vector>
 #include <cmath>
+#include <ctime>
 
 class PmergeMe
 {
     private:
         std::list<int>  _list;
         std::deque<int> _deque;
-        int compsNbr;
-        
-        public:
+
         PmergeMe();
         PmergeMe(const PmergeMe &other);
         PmergeMe&    operator=(const PmergeMe &other);
+
+        void    initTime();
+        
+    public:
+        PmergeMe(int count, char **argv);
         ~PmergeMe();
 
-        void    parse(int count, char **argv);
         std::list<int>  getList();
         std::deque<int> getDeque();
 
