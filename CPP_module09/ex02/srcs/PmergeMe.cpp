@@ -22,50 +22,9 @@ void    PmergeMe::initTime()
     std::cout << "After: ";
     display(_list);
 
-    std::cout << "After: ";
-    display(_deque);
-
     std::cout << "Time to sort with a deque container:\t" << dequeT << " of a size: " << _deque.size() << std::endl;
     std::cout << "Time to sort with a list container:\t" << listT << " of a size: " << _list.size() << std::endl;
 }
-
-
-// ***** BASICS *****
-PmergeMe::PmergeMe() {}
-
-PmergeMe::PmergeMe(int count, char **argv)
-{
-    for (int i = 0; i < count; ++i)
-    {
-        std::stringstream   ss(argv[i]);
-        int                 value;
-
-        if (!(ss >> value) || !(ss.eof()) || value < 0)
-            throw std::runtime_error("\e[31mError: Parsing of arguments " + std::string(argv[i]) + "..\e[0m");
-        this->_deque.push_back(value);
-        this->_list.push_back(value);
-    }
-    
-    initTime();
-}
-
-PmergeMe::PmergeMe(const PmergeMe &other) {*this = other; }
-
-PmergeMe&    PmergeMe:: operator = (const PmergeMe &other)
-{
-    if (this != &other)
-    {
-        this->_deque = other._deque;
-        this->_list = other._list;
-    }
-    return (*this);
-}
-
-PmergeMe::~PmergeMe() {}
-
-// ***** GETTERS *****
-std::list<int>  PmergeMe::getList() { return (this->_list); }
-std::deque<int> PmergeMe::getDeque() { return (this->_deque); }
 
 std::vector<size_t>  jacobsthalNbrs(size_t n)
 {
@@ -87,3 +46,44 @@ std::vector<size_t>  jacobsthalNbrs(size_t n)
             result.push_back(jacobsthal[i]);
     return (result);
 }
+
+// ***** BASICS *****
+PmergeMe::PmergeMe() {}
+
+PmergeMe::PmergeMe(int count, char **argv)
+{
+    for (int i = 0; i < count; ++i)
+    {
+        std::stringstream   ss(argv[i]);
+        int                 value;
+
+        if (!(ss >> value) || !(ss.eof()) || value < 0)
+            throw std::runtime_error("\e[31mError: Parsing of arguments " + std::string(argv[i]) + "..\e[0m");
+        
+        if (std::find(this->_deque.begin(), this->_deque.end(), value) != this->_deque.end())
+            throw std::runtime_error("\e[31mError: Duplicate elements ..\e[0m");
+            
+        this->_deque.push_back(value);
+        this->_list.push_back(value);
+    }
+
+    initTime();
+}
+
+PmergeMe::PmergeMe(const PmergeMe &other) {*this = other; }
+
+PmergeMe&    PmergeMe:: operator = (const PmergeMe &other)
+{
+    if (this != &other)
+    {
+        this->_deque = other._deque;
+        this->_list = other._list;
+    }
+    return (*this);
+}
+
+PmergeMe::~PmergeMe() {}
+
+// ***** GETTERS *****
+std::list<int>  PmergeMe::getList() { return (this->_list); }
+std::deque<int> PmergeMe::getDeque() { return (this->_deque); }
