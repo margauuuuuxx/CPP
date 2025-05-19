@@ -13,52 +13,63 @@ void    display(const T& container)
     std::cout << std::endl;
 }
 
-// ***** SORTING FCTS *****
-template <typename T>
-static T    merge(const T& left, const T& right)
-{
-    T   result;
-    typename T::const_iterator  it1 = left.begin();
-    typename T::const_iterator  it2 = right.begin();
-
-    while (it1 != left.end() && it2 != right.end())
-    {
-        if (*it1 < *it2)
-            result.push_back(*it1++);
-        else
-            result.push_back(*it2++);
-    }
-
-    result.insert(result.end(), it1, left.end());
-    result.insert(result.end(), it2, right.end());
-
-    return (result);
-}
-
-template <typename T>
-static std::pair<T, T>  split(const T& container)
-{
-    T   left;
-    T   right;
-    typename T::const_iterator  it = container.begin();
-
-    std::advance(it, container.size() / 2);
-    left.assign(container.begin(), it);
-    right.assign(it, container.end());
-
-    return (std::make_pair(left, right));
-}
-
 template <typename T>
 T    sort(const T& container)
 {
     if (container.size() <= 1)
         return (container);
-    std::pair<T, T> parts = split(container);
-    T left = sort(parts.first);
-    T right = sort(parts.second);
 
-    return (merge(left, right));
+    typedef typename T::value_type  valueType;
+    typename T::const_iterator      it = container.begin();
+    std::vector<valueType>          main;
+    std::vector<valueType>          pend;
+    
+    while (it != container.end())
+    {
+        valueType   first = *it;
+        ++it;
+        if (it != container.end())
+        {
+            valueType   second = *it;
+            ++it;
+            if (first > second)
+                std::swap(first, second);
+            pend.push_back(first);
+            main.push_back(second);
+        }
+        else
+            main.push_back(first);
+    }
+
+    std::sort(main.begin(), main.end());
+
+    std::vector<size_t> insertionOrder  = jacobsthalNbrs(pend.size());
+    std::set<size_t> inserted;
+    for (size_t i = 0; i < insertionOrder.size(); ++i)
+    {
+        size_t index    = insertionOrder[i];
+
+        if (index >= pend.size() || inserted.count(index))
+            continue;
+        inserted.insert(index);
+
+        valueType val   = pend[index];
+
+        typename std::vector<valueType>::iterator   pos;
+        pos = std::lower_bound(main.begin(), main.end(), val);
+        main.insert(pos, val);
+    }
+
+    T result;
+    for (size_t i = 0; i < main.size(); ++i)
+        result.push_back(main[i]);
+    return (result);
+
+    // std::pair<T, T> parts = split(container);
+    // T left = sort(parts.first);
+    // T right = sort(parts.second);
+
+    // return (merge(left, right));
 }
 
 #endif

@@ -8,8 +8,10 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <set>
 #include <cmath>
 #include <ctime>
+#include <algorithm>
 
 class PmergeMe
 {
@@ -34,6 +36,8 @@ class PmergeMe
     
 template <typename T>
 T   sort(const T& container);
+
+std::vector<size_t>  jacobsthalNbrs(size_t n);
 
 #include "../srcs/PmergeMe.tpp"
 

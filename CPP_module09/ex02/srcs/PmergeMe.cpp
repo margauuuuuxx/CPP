@@ -22,8 +22,11 @@ void    PmergeMe::initTime()
     std::cout << "After: ";
     display(_list);
 
-    std::cout << "Time to sort with a deque container:\t" << dequeT << " of a size:\t" << _deque.size() << std::endl;
-    std::cout << "Time to sort with a list container:\t" << listT << " of a size:\t" << _list.size() << std::endl;
+    std::cout << "After: ";
+    display(_deque);
+
+    std::cout << "Time to sort with a deque container:\t" << dequeT << " of a size: " << _deque.size() << std::endl;
+    std::cout << "Time to sort with a list container:\t" << listT << " of a size: " << _list.size() << std::endl;
 }
 
 
@@ -42,7 +45,7 @@ PmergeMe::PmergeMe(int count, char **argv)
         this->_deque.push_back(value);
         this->_list.push_back(value);
     }
-
+    
     initTime();
 }
 
@@ -63,3 +66,24 @@ PmergeMe::~PmergeMe() {}
 // ***** GETTERS *****
 std::list<int>  PmergeMe::getList() { return (this->_list); }
 std::deque<int> PmergeMe::getDeque() { return (this->_deque); }
+
+std::vector<size_t>  jacobsthalNbrs(size_t n)
+{
+    std::vector<size_t> jacobsthal;
+    size_t  j1 = 1, j2 = 0;
+
+    jacobsthal.push_back(0);
+    while (j1 < n)
+    {
+        jacobsthal.push_back(j1);
+        size_t  next = j1 + 2 * j2;
+        j2 = j1;
+        j1 = next;
+    }
+
+    std::vector<size_t> result;
+    for (size_t i = jacobsthal.size(); i-- > 0; )
+        if (jacobsthal[i] < n)
+            result.push_back(jacobsthal[i]);
+    return (result);
+}
