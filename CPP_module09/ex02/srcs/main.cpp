@@ -15,12 +15,15 @@ int main(int argc, char **argv)
         std::cerr << e.what() << std::endl;
     }
 
-    // std::list<int>  l = pm.getList();
-    // std::deque<int> d = pm.getDeque();
-    // for (std::deque<int>::iterator it = d.begin(); it != d.end(); ++it)
-    //     std::cout << "Deque:\t" << *it << std::endl;; 
-    // for(std::list<int>::iterator it = l.begin(); it != l.end(); ++it)
-    //     std::cout << "List:\t" << *it << std::endl;
-
     return (0);
 }
+
+/*
+    Why is it faster with a list ?
+        List                |       Deque
+    doubly linked list      | dynamic array of chunks
+    --> slow random access  | --> fast random access (O(1))
+    (o(n))                  |
+    Insertion/removal fast  | Insertion/removal fast at ends
+    at any position (O(1))  | slow in the middle (O(n))
+*/
