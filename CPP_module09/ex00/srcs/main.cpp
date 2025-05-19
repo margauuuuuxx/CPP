@@ -12,7 +12,7 @@ int main(int argc, char **argv)
         std::cerr << "\e[31mWrong number of arguments ..\e[0m" << std::endl;
         return (1);
     }
-
+    
     BitcoinExchange btc;
     
     std::ifstream   dataFile("./data.csv");
@@ -30,6 +30,6 @@ int main(int argc, char **argv)
         return (1);
     }
     btc.parseFile(file, VALUE_MAP);
-        
+
     return (0);
 }
