@@ -60,16 +60,21 @@ T    sort(const T& container)
         main.insert(pos, val);
     }
 
+    for (size_t i = 0; i < pend.size(); ++i)
+    {
+        if (inserted.count(i))
+            continue;
+
+        valueType val = pend[i];
+        typename std::vector<valueType>::iterator   pos;
+        pos = std::lower_bound(main.begin(), main.end(), val);
+        main.insert(pos, val);
+    }
+
     T result;
     for (size_t i = 0; i < main.size(); ++i)
         result.push_back(main[i]);
     return (result);
-
-    // std::pair<T, T> parts = split(container);
-    // T left = sort(parts.first);
-    // T right = sort(parts.second);
-
-    // return (merge(left, right));
 }
 
 #endif
