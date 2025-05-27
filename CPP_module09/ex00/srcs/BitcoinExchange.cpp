@@ -110,11 +110,15 @@ void    BitcoinExchange::parseLine(std::string& line)
 
 void BitcoinExchange::parseFile(std::ifstream& file, MapMode mode)
 {
-    if (!file.is_open())
+    try {
+        if (!file.is_open())
         throw::std::runtime_error("\e[31mError: could not open the file ...\e[0m");
-
-    if (file.peek() == std::ifstream::traits_type::eof())
+        
+        if (file.peek() == std::ifstream::traits_type::eof())
         throw::std::runtime_error("\e[31mError: file is empty ...\e[0m");
+    } catch(const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
 
     std::string line;
     if (std::getline(file, line))
